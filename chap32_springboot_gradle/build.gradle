@@ -1,0 +1,44 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.6'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.javalab'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+// 롬복 관련 라이브러리 추가하면 기능 활성화하기 위함
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+// 어느 서버에서 라이브러리를 다운받을지 서버 설정
+repositories {
+	mavenCentral()
+}
+
+// 다운로드할 디펜던시(라이브러리) 설정
+dependencies {
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'	
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-tomcat'
+	// 롬복
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	// 타임리프(JSP와 같은 템플릿 엔진)
+	//implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	// MyBatis(SQL Mapper)
+	//implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
+	// jsp를 사용하기 위한 라이브러리
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+  	implementation 'javax.servlet:jstl'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
